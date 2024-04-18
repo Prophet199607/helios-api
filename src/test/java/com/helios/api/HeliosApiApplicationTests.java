@@ -22,9 +22,7 @@ class HeliosApiApplicationTests {
 
     @Test
     void testSingletonBean() {
-        int expected = 10;
-//        assertEquals(patientService1, patientService2);
-        assertEquals(100, expected);
+        assertEquals(patientService1, patientService2);
     }
 
 }
