@@ -21,4 +21,4 @@ spec:
             - configMapRef:
                 name: helios-api-config
           ports:
-            - containerPort: 8888
+            - containerPort: 8080
