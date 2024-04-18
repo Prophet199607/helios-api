@@ -17,5 +17,8 @@ spec:
       containers:
         - name: helios-api-app
           image: asia-southeast1-docker.pkg.dev/celtic-sunlight-419307/helios-api/helios-api:latest
+          envFrom:
+            - configMapRef:
+                name: helios-api-config
           ports:
             - containerPort: 8888
