@@ -5,7 +5,7 @@ metadata:
   labels:
     app: helios-api-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: helios-api-app
