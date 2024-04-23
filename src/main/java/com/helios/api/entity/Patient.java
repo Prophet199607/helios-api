@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Data
 @Builder
@@ -36,6 +33,26 @@ public class Patient {
     @Basic
     @Column(name = "contact_number", nullable = false)
     private String contactNumber;
+
+    @Basic
+    @Column(name = "nic", nullable = false)
+    private String nic;
+
+    @Basic
+    @Column(name = "address1", nullable = false)
+    private String address1;
+
+    @Basic
+    @Column(name = "address2", nullable = false)
+    private String address2;
+
+    @Basic
+    @Column(name = "birthday", nullable = true)
+    private String birthday;
+
+    @Basic
+    @Column(name = "gender", nullable = true)
+    private String gender;
 
     @Basic
     @Column(name = "remark", nullable = true)

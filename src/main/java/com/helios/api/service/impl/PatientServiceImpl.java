@@ -14,6 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -74,26 +78,13 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public ResponseDto createPatient(PatientDto patientDto) {
         if (patientRepository.existsByEmail(patientDto.getEmail())) {
-            return new ResponseDto(ResponseType.DUPLICATE_ENTRY, HttpStatus.CONFLICT, "Duplicate email found!", null);
+            return new ResponseDto(ResponseType.DUPLICATE_ENTRY, HttpStatus.CONFLICT, "Duplicate email found!",
+                    null);
         }
 
-        StringBuilder tempPassword = new StringBuilder();
-        if (patientDto.getUser().getPassword() == null) {
-            int length = 5;
-            String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-            Random random = new Random();
-            for (int i = 0; i < length; i++) {
-                int randomIndex = random.nextInt(characters.length());
-                char randomChar = characters.charAt(randomIndex);
-                tempPassword.append(randomChar);
-            }
-            patientDto.getUser().setPassword(tempPassword.toString());
-
-            // send temp password email to the jobSeeker
-//            emailSenderService.sendEmail(patientDto.getEmail(),
-//                    "Welcome!",
-//                    "Hello! " + patientDto.getUser().getFullName() + "\nYour temporary password is: " + tempPassword + "\n" + "Use your first name as username");
+        if (patientRepository.existsByNic(patientDto.getNic())) {
+            return new ResponseDto(ResponseType.DUPLICATE_ENTRY, HttpStatus.CONFLICT, "Duplicate NIC found!",
+                    null);
         }
 
         User user = userService.createUser(new UserDto(patientDto.getUser().getUserName().toLowerCase(),
@@ -102,15 +93,27 @@ public class PatientServiceImpl implements PatientService {
 
         userService.assignRoleToUser(user.getUserId(), 4L);
 
-        Patient jobSeeker = modelMapper.map(patientDto, Patient.class);
-        jobSeeker.setUser(user);
+        Patient patient = modelMapper.map(patientDto, Patient.class);
 
-        Patient savedPatient = patientRepository.save(jobSeeker);
+        try {
+            Date birthday = extractBirthdayFromNIC(patientDto.getNic());
+            String gender = extractGenderFromNIC(patientDto.getNic());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            patient.setBirthday(dateFormat.format(birthday));
+            patient.setGender(gender);
+        } catch (ParseException e) {
+            System.out.println("Error parsing NIC number.");
+        }
+
+
+        patient.setUser(user);
+
+        Patient savedPatient = patientRepository.save(patient);
 
         return new ResponseDto(
                 ResponseType.SUCCESS,
                 HttpStatus.CREATED,
-                "Patient has been saved successfully!",
+                "User has been registered successfully!",
                 modelMapper.map(savedPatient, PatientResponseDto.class)
         );
     }
@@ -128,5 +131,49 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Long getCountOfRecords() {
         return null;
+    }
+
+
+    public static Date extractBirthdayFromNIC(String nicNumber) throws ParseException {
+
+        if (nicNumber.length() == 12) {
+            int year = Integer.parseInt(nicNumber.substring(0, 4));
+            int daysUntilBirthday = Integer.parseInt(nicNumber.substring(4, 7));
+
+            boolean isFemale = daysUntilBirthday > 500;
+            if (isFemale) {
+                daysUntilBirthday -= 500;
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.DAY_OF_YEAR, daysUntilBirthday);
+            return calendar.getTime();
+        } else if (nicNumber.length() == 10) {
+            int year = 1900 + Integer.parseInt(nicNumber.substring(0, 2));
+            int daysUntilBirthday = Integer.parseInt(nicNumber.substring(2, 5));
+
+            boolean isFemale = daysUntilBirthday > 500;
+            if (isFemale) {
+                daysUntilBirthday -= 500;
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.DAY_OF_YEAR, daysUntilBirthday);
+            return calendar.getTime();
+        } else {
+            return null;
+        }
+    }
+
+    public static String extractGenderFromNIC(String nicNumber) {
+        if (nicNumber.length() == 12) {
+            return nicNumber.charAt(9) % 2 == 0 ? "Female" : "Male";
+        } else if (nicNumber.length() == 10 && Character.isLetter(nicNumber.charAt(9))) {
+            return Character.toUpperCase(nicNumber.charAt(9)) == 'V' ? "Female" : "Male";
+        } else {
+            return null;
+        }
     }
 }
