@@ -87,11 +87,6 @@ public class PatientServiceImpl implements PatientService {
                     null);
         }
 
-        User user = userService.createUser(new UserDto(patientDto.getUser().getUserName().toLowerCase(),
-                patientDto.getUser().getFullName(),
-                patientDto.getUser().getEmail(), patientDto.getUser().getPassword()));
-
-        userService.assignRoleToUser(user.getUserId(), 4L);
 
         Patient patient = modelMapper.map(patientDto, Patient.class);
 
@@ -101,10 +96,20 @@ public class PatientServiceImpl implements PatientService {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             patient.setBirthday(dateFormat.format(birthday));
             patient.setGender(gender);
-        } catch (ParseException e) {
-            System.out.println("Error parsing NIC number.");
+        } catch (NullPointerException e) {
+            return new ResponseDto(
+                    ResponseType.FAIL,
+                    HttpStatus.BAD_REQUEST,
+                    "Invalid NIC!",
+                    null
+            );
         }
 
+        User user = userService.createUser(new UserDto(patientDto.getUser().getUserName().toLowerCase(),
+                patientDto.getUser().getFullName(),
+                patientDto.getUser().getEmail(), patientDto.getUser().getPassword()));
+
+        userService.assignRoleToUser(user.getUserId(), 4L);
 
         patient.setUser(user);
 
@@ -134,7 +139,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
 
-    public static Date extractBirthdayFromNIC(String nicNumber) throws ParseException {
+    public static Date extractBirthdayFromNIC(String nicNumber) {
 
         if (nicNumber.length() == 12) {
             int year = Integer.parseInt(nicNumber.substring(0, 4));

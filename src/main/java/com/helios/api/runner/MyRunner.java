@@ -47,7 +47,7 @@ public class MyRunner implements CommandLineRunner {
         createRoles();
         createAdmin();
 //        createConsultant();
-//        createPatient();
+        createPatient();
 //        createAppointment();
 
     }
@@ -107,21 +107,24 @@ public class MyRunner implements CommandLineRunner {
     }
 
     private void createPatient() {
-        PatientDto jobSeekerDto = new PatientDto();
-        jobSeekerDto.setEmail("dev7@onimtait.com");
-        jobSeekerDto.setFirstName("Tom");
-        jobSeekerDto.setLastName("Riddle");
-        jobSeekerDto.setContactNumber("0712381996");
-        jobSeekerDto.setIsActive(true);
+        PatientDto patientDto = new PatientDto();
+        patientDto.setEmail("dev7@onimtait.com");
+        patientDto.setFirstName("Tom");
+        patientDto.setLastName("Riddle");
+        patientDto.setContactNumber("0712381996");
+        patientDto.setNic("199620200917");
+        patientDto.setAddress1("No.12");
+        patientDto.setAddress2("Homagama");
+        patientDto.setIsActive(true);
 
         UserDto userDto = new UserDto();
         userDto.setUserName("tom");
         userDto.setFullName("Tom Riddle");
         userDto.setEmail("dev7@onimtait.com");
-        userDto.setPassword("456");
-        jobSeekerDto.setUser(userDto);
+        userDto.setPassword("asd");
+        patientDto.setUser(userDto);
 
-        patientService.createPatient(jobSeekerDto);
+        patientService.createPatient(patientDto);
 
     }
 
