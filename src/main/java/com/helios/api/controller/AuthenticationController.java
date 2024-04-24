@@ -68,8 +68,8 @@ public class AuthenticationController {
                 authResponseDto.setLoggedUserId(consultantByUser.getConsultantId());
             }
             if (role.equals("ROLE_USER")) {
-                Patient jobSeekerByUser = patientService.findConsultantByUser(loggedInUser.getUserId());
-                authResponseDto.setLoggedUserId(jobSeekerByUser.getPatientId());
+                Patient patientByUser = patientService.findPatientByUser(loggedInUser.getUserId());
+                authResponseDto.setLoggedUserId(patientByUser.getPatientId());
             }
 
             authResponseDto.setRoles(roles);

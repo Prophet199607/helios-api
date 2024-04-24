@@ -38,8 +38,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient findConsultantByUser(Long userId) {
-        return null;
+    public Patient findPatientByUser(Long userId) {
+        return patientRepository.findPatientByUserId(userId);
     }
 
     @Override

@@ -7,7 +7,7 @@ import com.helios.api.entity.Patient;
 public interface PatientService {
     Patient findPatientById(Long patientId);
 
-    Patient findConsultantByUser(Long userId);
+    Patient findPatientByUser(Long userId);
 
     ResponseDto fetchPatientById(Long patientId);
 
