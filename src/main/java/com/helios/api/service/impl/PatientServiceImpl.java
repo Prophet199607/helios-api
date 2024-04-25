@@ -109,6 +109,11 @@ public class PatientServiceImpl implements PatientService {
                 patientDto.getUser().getFullName(),
                 patientDto.getUser().getEmail(), patientDto.getUser().getPassword()));
 
+        if (user == null) {
+            return new ResponseDto(ResponseType.DUPLICATE_ENTRY, HttpStatus.CONFLICT, "Duplicate email found!",
+                    null);
+        }
+
         userService.assignRoleToUser(user.getUserId(), 4L);
 
         patient.setUser(user);

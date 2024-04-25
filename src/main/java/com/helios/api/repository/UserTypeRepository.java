@@ -1,9 +1,9 @@
 package com.helios.api.repository;
 
-import com.helios.api.entity.JobType;
+import com.helios.api.entity.UserType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface JobTypeRepository extends JpaRepository<JobType, Long> {
+public interface UserTypeRepository extends JpaRepository<UserType, Long> {
 }
