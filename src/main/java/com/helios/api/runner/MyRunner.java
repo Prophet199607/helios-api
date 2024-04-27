@@ -37,7 +37,8 @@ public class MyRunner implements CommandLineRunner {
         createUserType();
         createRoles();
         createAdmin();
-        createStaffMember();
+//        createStaffMember();
+        createLabUser();
         createPatient();
     }
 
@@ -62,6 +63,27 @@ public class MyRunner implements CommandLineRunner {
         userDto.setFullName("John Doe");
         userDto.setEmail("pasinduxx@hotmail.com");
         userDto.setPassword("1234");
+        staffMemberDto.setUser(userDto);
+
+        staffMemberService.createStaffMember(staffMemberDto);
+    }
+
+    private void createLabUser() {
+        StaffMember staffMemberDto = new StaffMember();
+        staffMemberDto.setEmail("pasindu@hotmail.com");
+        staffMemberDto.setFirstName("Jeff");
+        staffMemberDto.setLastName("Bezos");
+        staffMemberDto.setContactNumber("0712381996");
+        staffMemberDto.setIsAvailable(true);
+
+        UserType userType = userTypeService.loadUserTypeById(2L);
+        staffMemberDto.setUserType(userType);
+
+        User userDto = new User();
+        userDto.setUserName("jeff");
+        userDto.setFullName("Jeff Bezos");
+        userDto.setEmail("pasindu@hotmail.com");
+        userDto.setPassword("asd");
         staffMemberDto.setUser(userDto);
 
         staffMemberService.createStaffMember(staffMemberDto);

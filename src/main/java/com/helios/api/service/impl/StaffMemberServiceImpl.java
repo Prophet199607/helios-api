@@ -163,7 +163,15 @@ public class StaffMemberServiceImpl implements StaffMemberService {
                 staffMember.getUser().getFullName(),
                 staffMember.getUser().getEmail(), staffMember.getUser().getPassword()));
 
-        userService.assignRoleToUser(user.getUserId(), 2L);
+
+
+        if (staffMember.getUserType().getUserTypeId() == 2) {
+            userService.assignRoleToUser(user.getUserId(), 3L);
+        } else {
+            userService.assignRoleToUser(user.getUserId(), 2L);
+        }
+
+
 
 //        StaffMember staffMember = staffMemberMapper.fromStaffMemberDto(staffMemberDto);
         staffMember.setUser(user);

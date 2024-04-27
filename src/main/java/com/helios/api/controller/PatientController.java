@@ -2,6 +2,7 @@ package com.helios.api.controller;
 
 import com.helios.api.dto.PatientDto;
 import com.helios.api.dto.ResponseDto;
+import com.helios.api.service.AppointmentService;
 import com.helios.api.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class PatientController {
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private AppointmentService appointmentService;
 
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_CONSULTANT')")
@@ -62,8 +66,12 @@ public class PatientController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<ResponseDto> loadPatientByEmail(@RequestParam(name = "email", defaultValue = "") String email) {
-        ResponseDto responseDto = patientService.loadPatientByEmail(email);
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_LABORATORY')")
+    public ResponseEntity<ResponseDto> loadAppointmentsByNicAndStatus(
+            @RequestParam(name = "nic", defaultValue = "") String nic,
+            @RequestParam(name = "status", defaultValue = "1") int status
+    ) {
+        ResponseDto responseDto = appointmentService.loadAppointmentsByNicAndStatus(nic, status);
         return new ResponseEntity<>(responseDto, responseDto.getStatus());
     }
 

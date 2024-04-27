@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 public class AppointmentServiceImpl implements AppointmentService {
@@ -42,6 +45,32 @@ public class AppointmentServiceImpl implements AppointmentService {
                 HttpStatus.CREATED,
                 "Appointment has been saved successfully!",
                 modelMapper.map(savedAppointment, AppointmentResponseDto.class)
+        );
+    }
+
+    @Override
+    public ResponseDto loadAppointmentsByPatient(Long patientId) {
+        List<AppointmentResponseDto> appointments = appointmentRepository.findAppointmentsByPatientPatientId(patientId)
+                .stream().map(appointment -> modelMapper.map(appointment, AppointmentResponseDto.class))
+                .collect(Collectors.toList());
+        return new ResponseDto(
+                ResponseType.SUCCESS,
+                HttpStatus.OK,
+                "success!",
+                appointments
+        );
+    }
+
+    @Override
+    public ResponseDto loadAppointmentsByNicAndStatus(String patientId, int status) {
+        List<AppointmentResponseDto> appointments = appointmentRepository.findAppointmentsByPatientNicAndStatus(patientId, status)
+                .stream().map(appointment -> modelMapper.map(appointment, AppointmentResponseDto.class))
+                .collect(Collectors.toList());
+        return new ResponseDto(
+                ResponseType.SUCCESS,
+                HttpStatus.OK,
+                "success!",
+                appointments
         );
     }
 }
