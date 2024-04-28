@@ -16,14 +16,14 @@ public class DiagnosisController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ROLE_DOCTOR', 'ROLE_ADMIN')")
-    public ResponseEntity<ResponseDto> createConsultant(@RequestBody DiagnosisDto diagnosisDto) {
+    public ResponseEntity<ResponseDto> createDiagnosis(@RequestBody DiagnosisDto diagnosisDto) {
         ResponseDto responseDto = diagnosisService.createDiagnosis(diagnosisDto);
         return new ResponseEntity<>(responseDto, responseDto.getStatus());
     }
 
     @GetMapping("/patient/{patientId}")
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_DOCTOR', 'ROLE_ADMIN')")
-    public ResponseEntity<ResponseDto> loadAppointmentsByPatient(@PathVariable Long patientId) {
+    public ResponseEntity<ResponseDto> loadDiagnosesByPatient(@PathVariable Long patientId) {
         ResponseDto responseDto = diagnosisService.loadDiagnosesByPatient(patientId);
         return new ResponseEntity<>(responseDto, responseDto.getStatus());
     }

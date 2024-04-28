@@ -5,6 +5,7 @@ import com.helios.api.dto.DiagnosisDto;
 import com.helios.api.dto.DiagnosisResponseDto;
 import com.helios.api.dto.ResponseDto;
 import com.helios.api.entity.Diagnosis;
+import com.helios.api.repository.AppointmentRepository;
 import com.helios.api.repository.DiagnosisRepository;
 import com.helios.api.service.DiagnosisService;
 import com.helios.api.util.ResponseType;
@@ -25,6 +26,9 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     private DiagnosisRepository diagnosisRepository;
 
     @Autowired
+    private AppointmentRepository appointmentRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
     @Override
     public ResponseDto createDiagnosis(DiagnosisDto diagnosisDto) {
@@ -32,6 +36,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
         Diagnosis savedDiagnosis = diagnosisRepository.save(diagnosis);
 
+        appointmentRepository.changeAppointmentStatus(diagnosisDto.getAppointment().getAppointmentId(), 1);
 
         return new ResponseDto(
                 ResponseType.SUCCESS,

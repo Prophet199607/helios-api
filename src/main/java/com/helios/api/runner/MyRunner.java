@@ -37,7 +37,7 @@ public class MyRunner implements CommandLineRunner {
         createUserType();
         createRoles();
         createAdmin();
-//        createStaffMember();
+        createDoctor();
         createLabUser();
         createPatient();
     }
@@ -47,7 +47,7 @@ public class MyRunner implements CommandLineRunner {
                 .forEach(userType -> userTypeService.createUserType(userType, 1));
     }
 
-    private void createStaffMember() {
+    private void createDoctor() {
         StaffMember staffMemberDto = new StaffMember();
         staffMemberDto.setEmail("pasinduxx@hotmail.com");
         staffMemberDto.setFirstName("John");

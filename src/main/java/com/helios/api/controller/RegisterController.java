@@ -16,7 +16,7 @@ public class RegisterController {
     @Autowired
     private PatientService patientService;
     @PostMapping
-    public ResponseEntity<ResponseDto> createJobSeeker(@RequestBody PatientDto patientDto) {
+    public ResponseEntity<ResponseDto> createPatient(@RequestBody PatientDto patientDto) {
         ResponseDto responseDto = patientService.createPatient(patientDto);
         return new ResponseEntity<>(responseDto, responseDto.getStatus());
     }

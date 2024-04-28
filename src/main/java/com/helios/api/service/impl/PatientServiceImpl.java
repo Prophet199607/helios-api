@@ -32,19 +32,10 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private UserService userService;
-    @Override
-    public Patient findPatientById(Long patientId) {
-        return null;
-    }
 
     @Override
     public Patient findPatientByUser(Long userId) {
         return patientRepository.findPatientByUserId(userId);
-    }
-
-    @Override
-    public ResponseDto fetchPatientById(Long patientId) {
-        return null;
     }
 
     @Override
@@ -58,21 +49,6 @@ public class PatientServiceImpl implements PatientService {
                 "Success",
                 patients
         );
-    }
-
-    @Override
-    public ResponseDto fetchAllPatientsWithPagination(int page, int size) {
-        return null;
-    }
-
-    @Override
-    public ResponseDto findPatientsByName(String name, int page, int size) {
-        return null;
-    }
-
-    @Override
-    public ResponseDto loadPatientByEmail(String email) {
-        return null;
     }
 
     @Override
@@ -128,15 +104,6 @@ public class PatientServiceImpl implements PatientService {
         );
     }
 
-    @Override
-    public ResponseDto updatePatient(PatientDto patientDto) {
-        return null;
-    }
-
-    @Override
-    public ResponseDto removePatient(Long patientId) {
-        return null;
-    }
 
     @Override
     public Long getCountOfRecords() {

@@ -7,12 +7,8 @@ import com.helios.api.dto.PatientResponseDto;
 import com.helios.api.dto.ResponseDto;
 import com.helios.api.dto.UserDto;
 import com.helios.api.entity.Patient;
-import com.helios.api.entity.Role;
 import com.helios.api.entity.User;
 import com.helios.api.repository.PatientRepository;
-import com.helios.api.repository.RoleRepository;
-import com.helios.api.service.PatientService;
-import com.helios.api.service.UserService;
 import com.helios.api.util.ResponseType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,14 +16,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -37,9 +29,6 @@ class PatientServiceImplTest {
 
     @Mock
     private UserServiceImpl userService;
-
-    @Mock
-    private RoleRepository roleRepository;
 
     @Mock
     private ModelMapper modelMapper;
