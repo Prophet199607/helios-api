@@ -1,7 +1,7 @@
 package com.helios.api.controller;
 
 import com.helios.api.dto.ResponseDto;
-import com.helios.api.service.JobTypeService;
+import com.helios.api.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/job-type")
-public class JobTypeController {
+public class UserTypeController {
     @Autowired
-    private JobTypeService jobTypeService;
+    private UserTypeService userTypeService;
 
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_CONSULTANT', 'ROLE_USER')")
     public ResponseEntity<ResponseDto> findAllConsultants() {
-        ResponseDto responseDto = jobTypeService.fetchJobTypes();
+        ResponseDto responseDto = userTypeService.fetchUserTypes();
         return new ResponseEntity<>(responseDto, responseDto.getStatus());
     }
 }

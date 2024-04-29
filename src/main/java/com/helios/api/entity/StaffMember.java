@@ -14,12 +14,12 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "consultants")
-public class Consultant {
+@Table(name = "staff_members")
+public class StaffMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "consultant_id", nullable = false)
-    private Long consultantId;
+    @Column(name = "staff_id", nullable = false)
+    private Long staffMemberId;
 
     @Basic
     @Column(name = "first_name", nullable = false)
@@ -45,24 +45,19 @@ public class Consultant {
     @Column(name = "is_available", nullable = false)
     private Boolean isAvailable;
 
-    @OneToMany(mappedBy = "consultant", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    private Set<Appointment> appointments = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "jobtype_id", referencedColumnName = "jobtype_id", nullable = false)
-    private JobType jobType;
+    @JoinColumn(name = "usertype_id", referencedColumnName = "usertype_id", nullable = false)
+    private UserType userType;
 
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "consultant", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    private Set<Schedule> schedules = new HashSet<>();
-
     @Override
     public String toString() {
-        return "Consultant{" +
-                "consultantId=" + consultantId +
+        return "StaffMember{" +
+                "staffMemberId=" + staffMemberId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

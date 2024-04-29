@@ -6,44 +6,30 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "appointments")
-public class Appointment {
+@Table(name = "diagnoses")
+public class Diagnosis {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "appointment_id")
-    private Long appointmentId;
+    @Column(name = "diagnosis_id")
+    private Long diagnosisId;
 
     @Basic
-    @Column(name = "is_accepted", nullable = false)
-    private Boolean isAccepted;
-
-    @Basic
-    @Column(name = "preferred_date", nullable = false)
-    private Date preferredDate;
-
-    @Basic
-    @Column(name = "preferred_time", nullable = false)
-    private Time preferredTime;
+    @Column(name = "report_status", nullable = false)
+    private String reportStatus;
 
     @Basic
     @Column(name = "status", nullable = false)
     private Integer status;
 
     @Basic
-    @Column(name = "appointment_type", nullable = false)
-    private Integer appointmentType;
-
-    @Basic
-    @Column(name = "additional_message")
-    private String additionalMessage;
+    @Column(name = "doctor_remark")
+    private String doctorRemark;
 
     @CreatedDate
     @Column(name = "create_date")
@@ -52,4 +38,8 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", referencedColumnName = "patient_id", nullable = false)
     private Patient patient;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "appointment_id", referencedColumnName = "appointment_id", nullable = false)
+    private Appointment appointment;
 }

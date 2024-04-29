@@ -13,7 +13,6 @@ public class NewJobSeekerRequestDto {
     private UserDto user;
     private Boolean isAccepted;
     private Integer status;
-    private ConsultantDto consultant;
+    private StaffMemberDto consultant;
     private PatientDto patient;
-    private ScheduleDto schedule;
 }

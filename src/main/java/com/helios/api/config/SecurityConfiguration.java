@@ -28,12 +28,9 @@ public class SecurityConfiguration {
         http.cors().and().csrf().disable();
         http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/v1/auth/authenticate").permitAll())
                 .authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/v1/register").permitAll())
-                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/v1/job-seeker/**").authenticated())
                 .authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/v1/patient/**").authenticated())
-                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/v1/consultant/**").authenticated())
-                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/v1/country/**").authenticated())
                 .authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/v1/job-type/**").authenticated())
-                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/v1/schedule/**").authenticated())
+                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/v1/diagnosis/**").authenticated())
                 .authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/v1/appointment/**").authenticated())
                 .authorizeHttpRequests((authorize) -> authorize.requestMatchers("api/v1/dashboard/**").authenticated())
 //                .authorizeHttpRequests((authorize) -> authorize.requestMatchers( "api/v1/auth/authenticate").permitAll())

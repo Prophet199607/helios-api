@@ -38,6 +38,26 @@ public class Patient {
     private String contactNumber;
 
     @Basic
+    @Column(name = "nic", nullable = false)
+    private String nic;
+
+    @Basic
+    @Column(name = "address1", nullable = false)
+    private String address1;
+
+    @Basic
+    @Column(name = "address2", nullable = false)
+    private String address2;
+
+    @Basic
+    @Column(name = "birthday", nullable = true)
+    private String birthday;
+
+    @Basic
+    @Column(name = "gender", nullable = true)
+    private String gender;
+
+    @Basic
     @Column(name = "remark", nullable = true)
     private String remark;
 
@@ -45,10 +65,12 @@ public class Patient {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-//    @OneToMany(mappedBy = "jobSeeker", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-//    private Set<Appointment> appointments = new HashSet<>();
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Set<Appointment> appointments = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User user;
+
+
 }

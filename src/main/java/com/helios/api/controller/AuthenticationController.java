@@ -4,11 +4,11 @@ package com.helios.api.controller;
 import com.helios.api.dto.AuthRequest;
 import com.helios.api.dto.AuthResponseDto;
 import com.helios.api.dto.UserResponseDto;
-import com.helios.api.entity.Consultant;
+import com.helios.api.entity.StaffMember;
 import com.helios.api.entity.Patient;
 import com.helios.api.entity.User;
 import com.helios.api.repository.UserRepository;
-import com.helios.api.service.ConsultantService;
+import com.helios.api.service.StaffMemberService;
 import com.helios.api.service.JwtService;
 import com.helios.api.service.PatientService;
 import com.helios.api.service.UserService;
@@ -43,7 +43,7 @@ public class AuthenticationController {
     private UserRepository userRepository;
 
     @Autowired
-    private ConsultantService consultantService;
+    private StaffMemberService staffMemberService;
 
     @Autowired
     private PatientService patientService;
@@ -63,13 +63,13 @@ public class AuthenticationController {
                     .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 
             String role = roles.get(0);
-            if (role.equals("ROLE_CONSULTANT")) {
-                Consultant consultantByUser = consultantService.findConsultantByUser(loggedInUser.getUserId());
-                authResponseDto.setLoggedUserId(consultantByUser.getConsultantId());
+            if (role.equals("ROLE_DOCTOR")) {
+                StaffMember staffMemberByUser = staffMemberService.findStaffMemberByUser(loggedInUser.getUserId());
+                authResponseDto.setLoggedUserId(staffMemberByUser.getStaffMemberId());
             }
             if (role.equals("ROLE_USER")) {
-                Patient jobSeekerByUser = patientService.findConsultantByUser(loggedInUser.getUserId());
-                authResponseDto.setLoggedUserId(jobSeekerByUser.getPatientId());
+                Patient patientByUser = patientService.findPatientByUser(loggedInUser.getUserId());
+                authResponseDto.setLoggedUserId(patientByUser.getPatientId());
             }
 
             authResponseDto.setRoles(roles);
