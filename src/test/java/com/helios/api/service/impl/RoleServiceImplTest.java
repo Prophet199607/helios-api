@@ -27,7 +27,7 @@ class RoleServiceImplTest {
         MockitoAnnotations.openMocks(this);
     }
     @Test
-    public void testFindByRoleId_ExistingRoleId() {
+    void testFindByRoleId_ExistingRoleId() {
         Long roleId = 1L;
         Role expectedRole = new Role();
         expectedRole.setRoleId(roleId);
@@ -41,7 +41,7 @@ class RoleServiceImplTest {
     }
 
     @Test
-    public void testFindByRoleId_NonExistingRoleId() {
+    void testFindByRoleId_NonExistingRoleId() {
         Long roleId = 2L;
         when(roleRepository.findById(roleId)).thenReturn(Optional.empty());
 

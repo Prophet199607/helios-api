@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    List<Appointment> findAppointmentsByPatientPatientId(@Param("PatientId") Long PatientId);
+    List<Appointment> findAppointmentsByPatientPatientId(@Param("patientId") Long patientId);
 
     @Query(value = "select a from Appointment as a inner join Patient " +
             "as p on a.patient.patientId = p.patientId where p.nic=:nic and a.status =:status")

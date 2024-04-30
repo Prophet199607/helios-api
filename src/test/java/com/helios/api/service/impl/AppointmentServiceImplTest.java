@@ -35,7 +35,7 @@ class AppointmentServiceImplTest {
         MockitoAnnotations.openMocks(this);
     }
     @Test
-    public void testLoadAppointmentById_ExistingAppointmentId() {
+    void testLoadAppointmentById_ExistingAppointmentId() {
         Long appointmentId = 1L;
         Appointment expectedAppointment = new Appointment();
         expectedAppointment.setAppointmentId(appointmentId);
@@ -49,7 +49,7 @@ class AppointmentServiceImplTest {
     }
 
     @Test
-    public void testLoadAppointmentById_NonExistingAppointmentId() {
+    void testLoadAppointmentById_NonExistingAppointmentId() {
         Long appointmentId = 2L;
         when(appointmentRepository.findById(appointmentId)).thenReturn(Optional.empty());
 
@@ -57,7 +57,7 @@ class AppointmentServiceImplTest {
     }
 
     @Test
-    public void testCreateAppointment_Success() {
+    void testCreateAppointment_Success() {
         AppointmentDto appointmentDto = new AppointmentDto();
         appointmentDto.setStatus(0);
 
@@ -83,7 +83,7 @@ class AppointmentServiceImplTest {
     }
 
     @Test
-    public void testCreateAppointment_Failure() {
+    void testCreateAppointment_Failure() {
         AppointmentDto appointmentDto = new AppointmentDto();
         appointmentDto.setStatus(0);
 
@@ -93,7 +93,7 @@ class AppointmentServiceImplTest {
     }
 
     @Test
-    public void testLoadAppointmentsByPatient_Success() {
+    void testLoadAppointmentsByPatient_Success() {
         Long patientId = 1L;
 
         Appointment appointment1 = new Appointment();
@@ -135,7 +135,7 @@ class AppointmentServiceImplTest {
     }
 
     @Test
-    public void testLoadAppointmentsByPatient_EmptyList() {
+    void testLoadAppointmentsByPatient_EmptyList() {
         Long patientId = 2L;
         when(appointmentRepository.findAppointmentsByPatientPatientId(patientId)).thenReturn(Arrays.asList());
 
@@ -152,7 +152,7 @@ class AppointmentServiceImplTest {
     }
 
     @Test
-    public void testLoadAppointmentsByNicAndStatus_Success() {
+    void testLoadAppointmentsByNicAndStatus_Success() {
         String patientNic = "123456789";
         int status = 1;
 
@@ -195,7 +195,7 @@ class AppointmentServiceImplTest {
     }
 
     @Test
-    public void testLoadAppointmentsByNicAndStatus_EmptyList() {
+    void testLoadAppointmentsByNicAndStatus_EmptyList() {
         String patientNic = "123456789";
         int status = 2;
         when(appointmentRepository.findAppointmentsByPatientNicAndStatus(patientNic, status)).thenReturn(Arrays.asList());

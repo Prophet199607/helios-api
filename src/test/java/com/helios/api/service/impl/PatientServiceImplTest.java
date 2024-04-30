@@ -42,7 +42,7 @@ class PatientServiceImplTest {
     }
 
     @Test
-    public void testCreatePatient() {
+    void testCreatePatient() {
         // Mock input data
         PatientDto patientDto = new PatientDto();
         patientDto.setEmail("test@example.com");
@@ -98,7 +98,7 @@ class PatientServiceImplTest {
     }
 
     @Test
-    public void testFetchPatients() {
+    void testFetchPatients() {
         // Mock patient data
         Patient patient1 = new Patient();
         patient1.setPatientId(1L);

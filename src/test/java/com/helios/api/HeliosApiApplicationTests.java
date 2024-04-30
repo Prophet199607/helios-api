@@ -17,10 +17,6 @@ class HeliosApiApplicationTests {
     private PatientService patientService2;
 
     @Test
-    void contextLoads() {
-    }
-
-    @Test
     void testSingletonBean() {
         assertEquals(patientService1, patientService2);
     }
