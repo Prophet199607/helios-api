@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/staffMember")
 public class StaffMemberController {
-    @Autowired
-    private StaffMemberService staffMemberService;
+    private final StaffMemberService staffMemberService;
+
+    public StaffMemberController(StaffMemberService staffMemberService) {
+        this.staffMemberService = staffMemberService;
+    }
 
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")

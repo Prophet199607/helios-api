@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/job-type")
 public class UserTypeController {
-    @Autowired
-    private UserTypeService userTypeService;
+    private final UserTypeService userTypeService;
+
+    public UserTypeController(UserTypeService userTypeService) {
+        this.userTypeService = userTypeService;
+    }
 
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_CONSULTANT', 'ROLE_USER')")

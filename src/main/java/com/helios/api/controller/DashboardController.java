@@ -17,11 +17,14 @@ import java.util.Map;
 @RequestMapping("api/v1/dashboard")
 public class DashboardController {
 
-    @Autowired
-    private StaffMemberService staffMemberService;
+    private final StaffMemberService staffMemberService;
 
-    @Autowired
-    private PatientService patientService;
+    private final PatientService patientService;
+
+    public DashboardController(StaffMemberService staffMemberService, PatientService patientService) {
+        this.staffMemberService = staffMemberService;
+        this.patientService = patientService;
+    }
 
 
     @GetMapping("/admin")
@@ -48,14 +51,8 @@ public class DashboardController {
     @GetMapping("/consultant/{consultantId}")
     @PreAuthorize("hasAnyAuthority('ROLE_CONSULTANT')")
     public ResponseEntity<ResponseDto> getFiguresForConsultant(@PathVariable Long consultantId) {
-//        Long myScheduleCount = staffMemberService.getScheduleCount(consultantId);
-//        Long myAppointmentsCount = staffMemberService.getAppointmentsCount(consultantId);
-//        Long myNewAppointmentsCount = staffMemberService.getNewAppointmentsCount(consultantId);
 
         Map<String, Long> hashMap = new HashMap<>();
-//        hashMap.put("myScheduleCount", myScheduleCount);
-//        hashMap.put("myAppointmentsCount", myAppointmentsCount);
-//        hashMap.put("myNewAppointmentsCount", myNewAppointmentsCount);
 
         ResponseDto responseDto = new ResponseDto(
                 ResponseType.SUCCESS,

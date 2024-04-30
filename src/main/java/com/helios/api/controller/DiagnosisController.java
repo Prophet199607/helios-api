@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/diagnosis")
 public class DiagnosisController {
-    @Autowired
-    private DiagnosisService diagnosisService;
+    private final DiagnosisService diagnosisService;
+
+    public DiagnosisController(DiagnosisService diagnosisService) {
+        this.diagnosisService = diagnosisService;
+    }
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ROLE_DOCTOR', 'ROLE_ADMIN')")

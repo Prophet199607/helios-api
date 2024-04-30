@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/register")
 public class RegisterController {
-    @Autowired
-    private PatientService patientService;
+    private final PatientService patientService;
+
+    public RegisterController(PatientService patientService) {
+        this.patientService = patientService;
+    }
+
     @PostMapping
     public ResponseEntity<ResponseDto> createPatient(@RequestBody PatientDto patientDto) {
         ResponseDto responseDto = patientService.createPatient(patientDto);
