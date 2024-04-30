@@ -1,6 +1,5 @@
 package com.helios.api.service.impl;
 
-import com.helios.api.dto.AppointmentResponseDto;
 import com.helios.api.dto.DiagnosisDto;
 import com.helios.api.dto.DiagnosisResponseDto;
 import com.helios.api.dto.ResponseDto;

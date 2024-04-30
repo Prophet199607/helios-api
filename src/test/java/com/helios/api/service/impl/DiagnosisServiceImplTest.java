@@ -59,7 +59,7 @@ class DiagnosisServiceImplTest {
     }
 
     @Test
-    public void testLoadDiagnosesByPatient() {
+    void testLoadDiagnosesByPatient() {
         Patient patient1 = new Patient();
         patient1.setPatientId(1L);
 
