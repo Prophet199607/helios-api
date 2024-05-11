@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: helios-api-config
 data:
-  SPRING_DATASOURCE_URL: "jdbc:mysql://139.59.83.223:3306/helios"
+  SPRING_DATASOURCE_URL: "jdbc:mysql://35.240.240.219:3306/helios"
   SPRING_DATASOURCE_USERNAME: "root"
-  SPRING_DATASOURCE_PASSWORD: "onimta1+"
+  SPRING_DATASOURCE_PASSWORD: "4321"
