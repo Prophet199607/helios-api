@@ -39,7 +39,7 @@ public class MyRunner implements CommandLineRunner {
         createAdmin();
         createDoctor();
         createLabUser();
-        createPatient();
+//        createPatient();
     }
 
     private void createUserType() {
